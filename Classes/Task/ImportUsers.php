@@ -15,6 +15,7 @@
 namespace Causal\IgLdapSsoAuth\Task;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Causal\IgLdapSsoAuth\Exception\ImportUsersException;
 use Causal\IgLdapSsoAuth\Library\Authentication;
@@ -253,7 +254,7 @@ class ImportUsers extends \TYPO3\CMS\Scheduler\Task\AbstractTask
      *
      * @param string $mode
      */
-    public function setMode($mode)
+    public function setMode($mode): void
     {
         $this->mode = $mode;
     }
@@ -273,7 +274,7 @@ class ImportUsers extends \TYPO3\CMS\Scheduler\Task\AbstractTask
      *
      * @param string $context
      */
-    public function setContext($context)
+    public function setContext($context): void
     {
         $this->context = $context;
     }
@@ -293,7 +294,7 @@ class ImportUsers extends \TYPO3\CMS\Scheduler\Task\AbstractTask
      *
      * @param int $configuration
      */
-    public function setConfiguration($configuration)
+    public function setConfiguration($configuration): void
     {
         $this->configuration = (int)$configuration;
     }
@@ -315,7 +316,7 @@ class ImportUsers extends \TYPO3\CMS\Scheduler\Task\AbstractTask
      *
      * @param string $missingUsersHandling Can be "disable", "delete" or "nothing".
      */
-    public function setMissingUsersHandling($missingUsersHandling)
+    public function setMissingUsersHandling($missingUsersHandling): void
     {
         $this->missingUsersHandling = $missingUsersHandling;
     }
@@ -337,7 +338,7 @@ class ImportUsers extends \TYPO3\CMS\Scheduler\Task\AbstractTask
      *
      * @param string $restoredUsersHandling Can be "enable", "undelete", "both" or "nothing".
      */
-    public function setRestoredUsersHandling($restoredUsersHandling)
+    public function setRestoredUsersHandling($restoredUsersHandling): void
     {
         $this->restoredUsersHandling = $restoredUsersHandling;
     }
@@ -384,12 +385,14 @@ class ImportUsers extends \TYPO3\CMS\Scheduler\Task\AbstractTask
      *
      * @return \TYPO3\CMS\Core\Log\Logger
      */
-    protected function getLogger()
+    protected function getLogger(): \TYPO3\CMS\Core\Log\Logger
     {
         /** @var \TYPO3\CMS\Core\Log\Logger $logger */
         static $logger = null;
         if ($logger === null) {
-            $logger = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
+            /** @var LogManager $log */
+            $log = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class);
+            $logger = $log->getLogger(__CLASS__);
         }
         return $logger;
     }

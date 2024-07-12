@@ -268,7 +268,7 @@ class Typo3UserRepository
                 ->set($GLOBALS['TCA'][$table]['ctrl']['enablecolumns']['disabled'], 1);
 
             if (isset($GLOBALS['TCA'][$table]['ctrl']['tstamp'])) {
-                $queryBuilder->set($GLOBALS['TCA'][$table]['ctrl']['tstamp'], $GLOBALS['EXEC_TIME']);
+                $queryBuilder->set($GLOBALS['TCA'][$table]['ctrl']['tstamp'], \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('date', 'timestamp'));
             }
 
             $queryBuilder->executeStatement();
@@ -317,7 +317,7 @@ class Typo3UserRepository
                 ->set($GLOBALS['TCA'][$table]['ctrl']['delete'], 1);
 
             if (isset($GLOBALS['TCA'][$table]['ctrl']['tstamp'])) {
-                $queryBuilder->set($GLOBALS['TCA'][$table]['ctrl']['tstamp'], $GLOBALS['EXEC_TIME']);
+                $queryBuilder->set($GLOBALS['TCA'][$table]['ctrl']['tstamp'], \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('date', 'timestamp'));
             }
 
             $queryBuilder->executeStatement();

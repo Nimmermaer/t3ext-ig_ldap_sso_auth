@@ -70,7 +70,7 @@ class ModuleController extends ActionController
         // Set up module template.
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
-		$vars = GeneralUtility::_GET('tx_igldapssoauth_system_igldapssoauthtxigldapssoauthm1');
+		$vars = $this->request->getQueryParams()['tx_igldapssoauth_system_igldapssoauthtxigldapssoauthm1'];
 		if (
 			!isset($vars['redirect'])
 			&& !isset($vars['action'])
@@ -500,7 +500,7 @@ class ModuleController extends ActionController
 			// Import the user
 			$user = $importUtility->import($user, $ldapUser);
 
-			$data['id'] = (int)$user['uid'];
+			$data['id'] = (int)($user['uid'] ?? 0);
 		}
 
 		$payload = array_merge($data, ['success' => $success]);

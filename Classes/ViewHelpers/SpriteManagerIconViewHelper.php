@@ -34,7 +34,7 @@ class SpriteManagerIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Be\Abstra
     /**
      * Initialize arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('iconName', 'string', 'Icon to use', true);
         $this->registerArgument('options', 'array', 'Additional tag attributes', false, []);

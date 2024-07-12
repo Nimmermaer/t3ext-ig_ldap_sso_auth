@@ -49,12 +49,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    [
-                        0 => '',
-                        1 => '',
-                    ]
-                ],
             ],
         ],
         'name' => [
@@ -63,7 +57,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'eval' => 'required,trim',
+                'eval' => 'trim',
+                'required' => true,
             ]
         ],
         'domains' => [
@@ -97,12 +92,12 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.ldap_server.I.0',
-                        \Causal\IgLdapSsoAuth\Library\Configuration::SERVER_OPENLDAP
+                        'label' => 'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.ldap_server.I.0',
+                        'value' => \Causal\IgLdapSsoAuth\Library\Configuration::SERVER_OPENLDAP
                     ],
                     [
-                        'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.ldap_server.I.1',
-                        \Causal\IgLdapSsoAuth\Library\Configuration::SERVER_ACTIVE_DIRECTORY
+                        'label' => 'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.ldap_server.I.1',
+                        'value' => \Causal\IgLdapSsoAuth\Library\Configuration::SERVER_ACTIVE_DIRECTORY
                     ],
                 ],
                 'size' => 1,
@@ -135,10 +130,10 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.ldap_port',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => '5',
                 'max' => '5',
-                'eval' => 'int,trim',
+                'eval' => 'trim',
                 'default' => '389',
             ]
         ],
@@ -148,12 +143,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    [
-                        0 => '',
-                        1 => '',
-                    ]
-                ],
             ],
         ],
         'ldap_tls_reqcert' => [
@@ -162,12 +151,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    [
-                        0 => '',
-                        1 => '',
-                    ]
-                ],
                 'default' => 1,
             ],
         ],
@@ -177,12 +160,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    [
-                        0 => '',
-                        1 => '',
-                    ]
-                ],
             ],
         ],
         'ldap_binddn' => [
@@ -198,10 +175,9 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.ldap_password',
             'config' => [
-                'type' => 'input',
+                'type' => 'password',
                 'size' => '30',
-                'max' => '255',
-                'eval' => 'password',
+                'hashed' => false,
             ]
         ],
         'group_membership' => [
@@ -211,14 +187,14 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.group_membership.I.1',
-                        \Causal\IgLdapSsoAuth\Library\Configuration::GROUP_MEMBERSHIP_FROM_GROUP,
-                        'EXT:ig_ldap_sso_auth/Resources/Public/Icons/selicon_group_membership_1.png'
+                        'label' => 'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.group_membership.I.1',
+                        'value' => \Causal\IgLdapSsoAuth\Library\Configuration::GROUP_MEMBERSHIP_FROM_GROUP,
+                        'icon' => 'EXT:ig_ldap_sso_auth/Resources/Public/Icons/selicon_group_membership_1.png'
                     ],
                     [
-                        'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.group_membership.I.2',
-                        \Causal\IgLdapSsoAuth\Library\Configuration::GROUP_MEMBERSHIP_FROM_MEMBER,
-                        'EXT:ig_ldap_sso_auth/Resources/Public/Icons/selicon_group_membership_2.png'
+                        'label' => 'LLL:EXT:ig_ldap_sso_auth/Resources/Private/Language/locallang_db.xlf:tx_igldapssoauth_config.group_membership.I.2',
+                        'value' => \Causal\IgLdapSsoAuth\Library\Configuration::GROUP_MEMBERSHIP_FROM_MEMBER,
+                        'icon' => 'EXT:ig_ldap_sso_auth/Resources/Public/Icons/selicon_group_membership_2.png'
                     ],
                 ],
                 'minitems' => 1,

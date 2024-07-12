@@ -39,7 +39,7 @@ class DataHandler
      * @param \TYPO3\CMS\Core\DataHandling\DataHandler $pObj
      * @return void
      */
-    public function processDatamap_afterDatabaseOperations($operation, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler $pObj)
+    public function processDatamap_afterDatabaseOperations($operation, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler $pObj): void
     {
         if ($table !== 'tx_igldapssoauth_config') {
             // Early return

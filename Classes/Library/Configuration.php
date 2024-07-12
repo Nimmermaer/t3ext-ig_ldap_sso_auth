@@ -54,7 +54,7 @@ class Configuration
      * @param string $mode TYPO3 mode, either 'be' or 'fe'
      * @param \Causal\IgLdapSsoAuth\Domain\Model\Configuration $configuration
      */
-    public static function initialize($mode, \Causal\IgLdapSsoAuth\Domain\Model\Configuration $configuration)
+    public static function initialize($mode, \Causal\IgLdapSsoAuth\Domain\Model\Configuration $configuration): void
     {
         $globalConfiguration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ig_ldap_sso_auth'] ?? [];
 
@@ -320,7 +320,7 @@ class Configuration
      * @return void
      * @throws \UnexpectedValueException
      */
-    public static function setMode($mode)
+    public static function setMode($mode): void
     {
         $mode = strtolower($mode);
         if (!GeneralUtility::inList('be,fe', $mode)) {

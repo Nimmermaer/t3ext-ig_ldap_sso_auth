@@ -200,7 +200,7 @@ class ImportUsersAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFiel
      * @param \TYPO3\CMS\Scheduler\Task\AbstractTask $task Reference to the scheduler backend module
      * @return void
      */
-    public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task)
+    public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task): void
     {
         /** @var \Causal\IgLdapSsoAuth\Task\ImportUsers $task */
         $task->setMode($submittedData['tx_igldapssoauth_mode']);

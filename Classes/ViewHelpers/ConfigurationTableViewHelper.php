@@ -34,7 +34,7 @@ class ConfigurationTableViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abs
     /**
      * Initialize arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('data', 'mixed', 'Data as array or string', true);
         $this->registerArgument('humanKeyNames', 'bool', 'Use human key names', false, false);
@@ -190,7 +190,7 @@ class ConfigurationTableViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abs
      */
     protected function translate($id, array $arguments = null)
     {
-        $value = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($id, 'ig_ldap_sso_auth', $arguments);
+        $value = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($id, 'IgLdapSsoAuth', $arguments);
         return $value !== null ? $value : $id;
     }
 

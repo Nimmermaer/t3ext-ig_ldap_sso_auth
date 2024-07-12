@@ -211,6 +211,7 @@ class UserImportUtility
         }
 
         $typo3Groups = Authentication::getUserGroups($ldapUser, $this->configuration, $this->groupTable);
+
         if ($typo3Groups === null) {
             // Required LDAP groups are missing: quit!
             return $user;

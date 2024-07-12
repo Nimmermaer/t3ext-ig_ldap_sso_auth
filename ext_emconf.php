@@ -17,8 +17,6 @@ In case of use in an intranet environment, this extension is a perfect match sin
     'category' => 'services',
     'version' => '4.0.0',
     'state' => 'stable',
-    'uploadfolder' => 0,
-    'createDirs' => '',
     'clearcacheonload' => 0,
     'author' => 'Xavier Perseguers',
     'author_email' => 'xavier@causal.ch',
@@ -26,7 +24,7 @@ In case of use in an intranet environment, this extension is a perfect match sin
     'constraints' => [
         'depends' => [
             'php' => '8.1.0-8.2.99',
-            'typo3' => '12.0.0-12.4.99',
+            'typo3' => '12.4.0-12.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
