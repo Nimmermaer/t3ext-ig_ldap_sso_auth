@@ -311,8 +311,16 @@ class LdapUtility
      * @return bool
      * @see http://ca3.php.net/manual/fr/function.ldap-search.php
      */
-    public function search($baseDn = null, $filter = null, $attributes = [], $attributesOnly = false, $sizeLimit = 0, $timeLimit = 0, $dereferenceAliases = LDAP_DEREF_NEVER, $continueLastSearch = false)
-    {
+    public function search(
+        $baseDn = null,
+        $filter = null,
+        $attributes = [],
+        $attributesOnly = false,
+        $sizeLimit = 0,
+        $timeLimit = 0,
+        $dereferenceAliases = LDAP_DEREF_NEVER,
+        $continueLastSearch = false
+    ) {
         if (!$baseDn) {
             $this->status['search']['basedn'] = 'No valid base DN';
             return false;
@@ -328,15 +336,14 @@ class LdapUtility
                 $this->paginationCookie = null;
             }
 
-			$ldapControls = ldap_read($this->connection, '', '(objectClass=*)', ['supportedControl']);
-			$ldapEntries = ldap_get_entries($this->connection, $ldapControls);
-			if (isset($ldapEntries[0]['supportedcontrol']) && in_array(LDAP_CONTROL_PAGEDRESULTS, $ldapEntries[0]['supportedcontrol'])) {
-			  $this->hasPagination = true;
-			}
+            $ldapControls = ldap_read($this->connection, '', '(objectClass=*)', ['supportedControl']);
+            $ldapEntries = ldap_get_entries($this->connection, $ldapControls);
+            if (isset($ldapEntries[0]['supportedcontrol']) && in_array(LDAP_CONTROL_PAGEDRESULTS, $ldapEntries[0]['supportedcontrol'])) {
+                $this->hasPagination = true;
+            }
 
-			$controls = [['oid' => LDAP_CONTROL_PAGEDRESULTS, 'value' => ['size' => static::MAX_ENTRIES, 'cookie' => $this->paginationCookie]]];
-			$this->searchResult = @ldap_search($this->connection, $baseDn, $filter, $attributes, $attributesOnly, $sizeLimit, $timeLimit, $dereferenceAliases, $controls);
-
+            $controls = [['oid' => LDAP_CONTROL_PAGEDRESULTS, 'value' => ['size' => static::MAX_ENTRIES, 'cookie' => $this->paginationCookie]]];
+            $this->searchResult = @ldap_search($this->connection, $baseDn, $filter, $attributes, $attributesOnly, $sizeLimit, $timeLimit, $dereferenceAliases, $controls);
             if (!$this->searchResult) {
                 // Search failed.
                 $this->status['search']['status'] = ldap_error($this->connection);
@@ -344,12 +351,13 @@ class LdapUtility
             }
 
             $this->firstResultEntry = @ldap_first_entry($this->connection, $this->searchResult);
+            if (!$this->firstResultEntry) {
+                return false;
+            }
             $this->status['search']['status'] = ldap_error($this->connection);
             return true;
         }
 
-        // No connection identifier (cid).
-        $this->status['search']['status'] = ldap_error($this->connection);
         return false;
     }
 
@@ -432,18 +440,20 @@ class LdapUtility
     /**
      * Returns the first entry.
      *
-     * @return array
      */
-    public function getFirstEntry()
+    public function getFirstEntry(): array
     {
+        if (!$this->firstResultEntry) {
+            return [];
+        }
+
         $this->status['get_first_entry']['status'] = ldap_error($this->connection);
         $attributes = @ldap_get_attributes($this->connection, $this->firstResultEntry);
         $tempEntry = [];
         foreach ($attributes as $key => $value) {
             $tempEntry[strtolower($key)] = $value;
         }
-
-		return $this->convertCharacterSetForArray($tempEntry, $this->ldapCharacterSet, $this->typo3CharacterSet);
+        return $this->convertCharacterSetForArray($tempEntry, $this->ldapCharacterSet, $this->typo3CharacterSet);
     }
 
     /**

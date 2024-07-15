@@ -77,18 +77,6 @@ defined('TYPO3') || die();
 	// User have save doc new button
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('options.saveDocNew.tx_igldapssoauth_config=1');
 
-	// Register icons.
-	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-	$iconRegistry->registerIcon(
-		'ig_ldap_sso_auth_module',
-		\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-		['source' => 'EXT:ig_ldap_sso_auth/Resources/Public/Icons/module-ldap.png']
-	);
-	$iconRegistry->registerIcon(
-		'extensions-ig_ldap_sso_auth-overlay-ldap-record',
-		\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-		['source' => 'EXT:ig_ldap_sso_auth/Resources/Public/Icons/overlay-ldap-record.png']
-	);
 })(
 	'ig_ldap_sso_auth'
 );
