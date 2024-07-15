@@ -131,10 +131,10 @@ class LdapGroup
 	 * @param array $mapping
 	 * @return array|bool
 	 */
-	public static function getMembership(array $ldapUser = [], array $mapping = [])
-	{
+	public static function getMembership(array $ldapUser = [], array $mapping = []): bool|array
+    {
 		if (isset($mapping['usergroup']) && preg_match("`<([^$]*)>`", $mapping['usergroup'], $attribute)) {
-			return $ldapUser[strtolower($attribute[1])];
+			return $ldapUser[strtolower($attribute[1])] ?? false;
 		}
 
 		return false;
