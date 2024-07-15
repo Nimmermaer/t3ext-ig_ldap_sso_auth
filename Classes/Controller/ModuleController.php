@@ -18,6 +18,7 @@ use Causal\IgLdapSsoAuth\Exception\InvalidHostnameException;
 use Causal\IgLdapSsoAuth\Exception\UnresolvedPhpDependencyException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Http\JsonResponse;
@@ -39,6 +40,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @package    TYPO3
  * @subpackage ig_ldap_sso_auth
  */
+#[AsController]
 class ModuleController extends ActionController
 {
 	/**
@@ -70,7 +72,7 @@ class ModuleController extends ActionController
         // Set up module template.
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
-		$vars = $this->request->getQueryParams()['tx_igldapssoauth_system_igldapssoauthtxigldapssoauthm1'];
+		$vars = $this->request->getQueryParams()['tx_igldapssoauth_system_igldapssoauthtxigldapssoauthm1'] ?? [];
 		if (
 			!isset($vars['redirect'])
 			&& !isset($vars['action'])
@@ -89,13 +91,6 @@ class ModuleController extends ActionController
 				return $this->redirect('index');
 			}
 		}
-
-		// Add CSS.
-		$assetCollector = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\AssetCollector::class);
-		$assetCollector->addStyleSheet(
-			'ig_ldap_sso_auth_module',
-			'EXT:ig_ldap_sso_auth/Resources/Public/Css/styles.css'
-		);
 
 		/** @var PageRenderer $pageRenderer */
 		$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
@@ -442,7 +437,6 @@ class ModuleController extends ActionController
 			'success' => $success,
 			'html' => $html,
 		];
-
 		return (new JsonResponse())->setPayload($payload);
 	}
 
