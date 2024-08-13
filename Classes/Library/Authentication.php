@@ -364,7 +364,9 @@ class Authentication
                 $hasRequired = false;
                 $groupUids = [];
                 foreach ($typo3GroupsTemp as $typo3Group) {
-                    $groupUids[] = $typo3Group['uid'];
+                    if(array_key_exists('uid' , $typo3Group)) {
+                        $groupUids[] = $typo3Group['uid']; 
+                    } 
                 }
                 foreach ($requiredLDAPGroups as $group) {
                     if (in_array($group->getUid(), $groupUids)) {
